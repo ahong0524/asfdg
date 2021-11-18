@@ -1,8 +1,16 @@
 <template>
-  <div>
-    <router-link to="/a">A组件</router-link>
-    <router-view></router-view>
-  </div>
+  <!-- <p>{{ counf }}</p>
+
+  <hr /> -->
+  <router-view></router-view>
 </template>
 
-<style lang="scss"></style>
+<script setup>
+// import { ref } from 'vue'
+// const counf = ref(10)
+</script>
+
+<style lang="scss" scoped>
+// 属性穿透
+// ::v-deep  建议放在父节点
+</style>

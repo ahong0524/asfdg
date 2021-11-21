@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import { isCheckTimeOut } from './auth.js'
 // 导入store
 import store from '@/store/index.js'
 // 封装token
@@ -8,17 +9,20 @@ const server = axios.create({
   timeout: 5000,
   baseURL: '/api'
 })
-// 不需要登陆(不需要token) 就能访问接口   白名单
-// const whiteUrl = ['/sys/login']
 // 请求拦截 封装token
 server.interceptors.request.use(
   (config) => {
     if (store.getters.token) {
+      if (!isCheckTimeOut()) {
+        // 过期执行退出
+        store.dispatch('user/logout')
+        // 不应该请求了
+        return Promise.reject(new Error('token 过期'))
+      }
       // 如果存在token   不存在 不封装
       config.headers.Authorization = `Beare ${store.getters.token}`
     }
     // 在发送前做什么
-
     return config
   },
   (error) => {
@@ -42,11 +46,20 @@ server.interceptors.response.use(
     }
   },
   (error) => {
+    // token失效code=401 单点登录 后台赶回特定的状态码 执行退出
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.code === 401
+    ) {
+      store.dispatch('user/logout')
+    }
     // 对相应错误做点什么  服务器未知错误 才会进入这里
     ElMessage({
       type: 'error',
-      message: 'xxx'
+      message: error.message
     })
+    // 对相应错误应该错什么
     return Promise.reject(error)
   }
 )

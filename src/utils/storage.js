@@ -5,22 +5,26 @@ export const setItem = (key, value) => {
   }
   window.localStorage.setItem(key, value)
 }
-// 获取
+
+// 获取数据
 export const getItem = (key) => {
   const value = window.localStorage.getItem(key)
+  // 对象的字符串 '{"name":"张三"}'  'sdafsdafa'
   try {
-    // 是对象字符串
+    // 是一个对象的字符串
     return JSON.parse(value)
   } catch (err) {
-    // 不是一个对象字符串
+    // 不是对象的字符串
     return value
   }
 }
-// 删除 当个
-export const deleteItem = (key) => {
+
+// 删除
+export const deletItem = (key) => {
   window.localStorage.removeItem(key)
 }
-// 清空
-export const clearItem = () => {
-  window.localStorage.deleteItem()
+
+// 清空所有
+export const clearItem = (key) => {
+  window.localStorage.deletItem(key)
 }

@@ -1,7 +1,11 @@
 <template>
-  <div class="app-main">appmain</div>
+  <div class="app-main">
+    <!--二级路由显示容器-->
+    <router-view />
+  </div>
 </template>
 <script setup></script>
+
 <style lang="scss" scoped>
 .app-main {
   min-height: calc(100vh - 50px);

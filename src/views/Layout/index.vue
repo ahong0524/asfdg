@@ -7,7 +7,7 @@
     <side-bar
       id="guide-sidebar"
       class="sidebar-container"
-      :style="{ backgroundColor: variables.subMenuBg }"
+      :style="{ backgroundColor: store.getters.cssVar.menuBg }"
     />
 
     <!--右边-->
@@ -23,8 +23,6 @@
 import SideBar from './components/Sidebar/index.vue'
 import NavBar from './components/Navbar/index.vue'
 import AppMain from './components/Appmain/index'
-
-import variables from '@/styles/variables.scss'
 import { useStore } from 'vuex'
 const store = useStore()
 </script>

@@ -7,7 +7,8 @@
       ref="loginRef"
     >
       <div class="title-container">
-        <h3 class="title">用户登陆</h3>
+        <h3 class="title">{{ $t('msg.login.title') }}</h3>
+        <select-lang class="select-lang" />
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
@@ -40,18 +41,21 @@
         type="primary"
         style="width: 100%; margin-top: 30px"
         @click="handleLogin"
-        >登录</el-button
+        >{{ $t('msg.login.loginBtn') }}</el-button
       >
+      <!--账号tips-->
+      <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
   </div>
 </template>
 
 <script setup>
 import '@/icons/index.js'
-import { ref } from 'vue'
-import { passwordValidate } from './rule'
+import { ref, watch } from 'vue'
+import { passwordValidate, usernameValidate } from './rule'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import SelectLang from '@/components/SelectLang/index'
 
 // 表单数据
 const loginForm = ref({
@@ -65,15 +69,11 @@ const loginRules = ref({
     {
       required: true,
       trigger: 'blur',
-      message: '账号必须填写'
+      // message: i18n.global.t('msg.login.usernameRule')
+      validator: usernameValidate()
     }
   ],
   password: [
-    {
-      required: true,
-      trigger: 'blur',
-      message: '密码必须填写'
-    },
     {
       trigger: 'blur',
       validator: passwordValidate()
@@ -108,6 +108,15 @@ const handleLogin = () => {
     }) // 异步请求
   })
 }
+// 监听getters.language 的变化
+watch(
+  () => store.getters.language,
+  (newValue, oldValue) => {
+    // 中英文切换了  验证重新更新
+    loginRef.value.validateField('username')
+    loginRef.value.validateField('password')
+  }
+)
 </script>
 <style lang="scss" scoped>
 $bg: #2d3a4b;
@@ -125,6 +134,14 @@ $cursor: #fff;
   height: 100vh;
   background: $bg;
   overflow: hidden;
+  :deep(.select-lang) {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    background-color: white;
+    font-size: 24px;
+    border-radius: 4px;
+  }
 
   .login-form {
     position: relative;
@@ -167,6 +184,12 @@ $cursor: #fff;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
+    }
+    .tips {
+      font: size 14px;
+      line-height: 28px;
+      color: #fff;
+      margin-bottom: 10px;
     }
   }
 }

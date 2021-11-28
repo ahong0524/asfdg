@@ -14,6 +14,8 @@ require("./styles/index.scss");
 
 var _index2 = _interopRequireDefault(require("./icons/index"));
 
+require("./permission.js");
+
 var _index3 = _interopRequireDefault(require("@/i18n/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -21,7 +23,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // 引入样式入口文件
 //  加载svg的处理
 // 用户鉴权
-// import './permission.js'
 // 导入i18n
 var app = (0, _vue.createApp)(_App["default"]);
 (0, _element["default"])(app);

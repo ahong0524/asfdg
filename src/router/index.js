@@ -1,9 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router'
+/*eslint-disable*/
+import {
+  createRouter,
+  createWebHistory
+} from 'vue-router'
 import index from '../views/index.vue'
 
 // 私有路由
-const privateRoutes = [
-  {
+const privateRoutes = [{
     path: '/user',
     component: () => import('@/views/Layout/index.vue'),
     redirect: '/user/manage',
@@ -11,8 +14,7 @@ const privateRoutes = [
       title: 'user',
       icon: 'personnel'
     },
-    children: [
-      {
+    children: [{
         path: '/user/manage',
         component: () => import('@/views/user-manage/index'),
         meta: {
@@ -62,8 +64,7 @@ const privateRoutes = [
       title: 'article',
       icon: 'article'
     },
-    children: [
-      {
+    children: [{
         path: '/article/ranking',
         component: () => import('@/views/article-ranking/index'),
         meta: {
@@ -97,8 +98,7 @@ const privateRoutes = [
   }
 ]
 // 公共路由 任何权限的用户都能访问
-const publicRoutes = [
-  {
+const publicRoutes = [{
     path: '/login',
     name: 'login',
     component: index
@@ -108,8 +108,7 @@ const publicRoutes = [
     name: 'Index',
     component: () => import('@/views/Layout/index.vue'),
     redirect: '/profile',
-    children: [
-      {
+    children: [{
         path: '/profile',
         name: 'profile',
         component: () => import('@/views/profile/index'),

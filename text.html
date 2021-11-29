@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信息表单</title>
+</head>
+
+<body>
+  <div class="MaxBox">
+    <form class="FormBox">
+      <form class="tBox">
+        <p>个人信息</p><br>
+        <p>姓名：<input class="fn_a" type="text"></p>
+        <p>年龄：<select class=" fn_a" name="age">
+            <option value="">16</option>
+            <option value="">17</option>
+            <option value="">18</option>
+            <option value="">19</option>
+          </select>
+        </p>
+        <p>手机：<input class=" fn_a" type="text"></p>
+        <p>邮箱：<input class=" fn_a" type="text"></p>
+        <p>学历：<input class=" fn_a" type="text"></p>
+        <p>城市：<select class=" fn_a" name="position">
+            <option value="">北京</option>
+            <option value="">上海</option>
+            <option value="">深圳</option>
+          </select>
+        </p>
+        <div class="zz">性别：
+          <input type="radio" value="nan" name="xb">男&nbsp;
+          <input type="radio" value="nv" name="xb">女
+        </div>
+        <div class="zz">专业：
+          <input type="checkbox" value="nan" name="xb">平面设计&nbsp;
+          <input type="checkbox" value="nv" name="xb">ui设计&nbsp;
+          <input type="checkbox" value="nv" name="xb">商业插图
+        </div>
+        <div class="zz">自我评价:</div>
+        <div class="zz">
+          <textarea class="zzz"></textarea>
+        </div>
+        <button>提交</button>
+        <button>重置</button>
+      </form>
+  </div>
+  </div>
+  <style>
+    .aa {
+      line-height: 100px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .MaxBox {
+      width: 100%;
+      text-align: center;
+    }
+
+    .FormBox {
+      width: 500px;
+      height: 500px;
+      display: inline-block;
+      border-radius: 10px;
+      margin-top: 50px;
+      background: skyblue;
+    }
+
+    .tBox {
+      text-align: left;
+      padding-left: 0;
+    }
+
+    p {
+      display: inline-block;
+      margin-left: 0;
+      margin-top: 5px;
+    }
+
+    .zz {
+      padding-left: 75px;
+      text-align: left;
+    }
+
+    .zzz {
+      width: 350px;
+      height: 100px;
+    }
+
+    .fn_a {
+      width: 300px;
+      height: 30px;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 70px;
+      height: 20px;
+    }
+  </style>
+</body>
+
+</html>

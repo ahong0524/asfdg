@@ -1,4 +1,5 @@
 <template>
+  <!-- 注册的svg全局组件 -->
   <!-- el-icon -->
   <i :class="icon" v-if="icon.includes('el-icon')"></i>
   <!-- svg组件 -->

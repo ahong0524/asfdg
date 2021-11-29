@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <!--Logo-->
     <div class="logo-container">
       <el-avatar :src="Logo" shape="square" />

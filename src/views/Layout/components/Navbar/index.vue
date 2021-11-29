@@ -1,14 +1,19 @@
 <template>
   <div class="navbar">
-    <!--切换侧边栏的组件-->
+    <!--切换侧边栏-->
     <cuttle class="cuttle-container" />
-    <!-- 面包屑 -->
+    <!-- 面包屑导航 -->
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
-      <!-- 国际化按钮 -->
+      <search />
+      <!-- 全屏切换 -->
+      <screen-full class="right-menu-item" />
+      <!-- 主题换肤 -->
+      <theme class="right-menu-item" />
+      <!-- 切换语言按钮 -->
       <select-lang class="right-menu-item" />
       <el-dropdown class="avatar-container">
-        <!-- 头像-->
+        <!-- 头像 -->
         <div class="avatar-wrapper">
           <el-avatar shape="square" :size="50" :src="avatar"></el-avatar>
         </div>
@@ -29,8 +34,14 @@
 import avatar from '@/assets/logo.png'
 import { useStore } from 'vuex'
 import Cuttle from '@/components/Cuttle/index.vue'
+// 引入面包屑导航组件
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import SelectLang from '@/components/SelectLang/index'
+// 引入换肤组件
+import Theme from '@/components/Theme/index.vue'
+import ScreenFull from '@/components/Screenfull/index.vue'
+// 引入搜索框
+import search from '@/components/Search/index.vue'
 const store = useStore()
 // 主动退出
 const logout = () => {

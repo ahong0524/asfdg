@@ -1,18 +1,18 @@
 <template>
   <el-breadcrumb class="breadcrumb" separator="/">
-    <transition-group name="list" tag="span">
+    <transition-group name="list">
       <el-breadcrumb-item
         v-for="(item, index) in breadcrumbData"
         :key="item.path"
       >
-        <!-- 如果是最后一项 不可点击的 -->
-        <span v-if="index === breadcrumbData.length - 1" class="on-redirect">
+        <!-- 如果是最后一项是不可以点击的 -->
+        <span v-if="index === breadcrumbData.length - 1" class="no-redirect">
           {{ getTitle(item.meta.title) }}
         </span>
-        <!-- 不是最后一项 可以点击 -->
-        <a v-else class="redirect" @click.prevent="onLinkClick(item)">{{
-          item.meta.title
-        }}</a>
+        <!--如果不是最后一项是可以点击的-->
+        <a v-else class="redirect" @click.prevent="onLinkClick(item)">
+          {{ getTitle(item.meta.title) }}
+        </a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -21,33 +21,32 @@
 import { watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getTitle } from '@/utils/i18n.js'
-// 监听路由变化
+
+// 获取当前路由
 const route = useRoute()
 const breadcrumbData = ref([])
+// 监听路由变化
 watch(
   route,
   () => {
-    // 过滤
     breadcrumbData.value = route.matched.filter((item) => {
       return item.meta && item.meta.title
     })
-    console.log(route.matched)
   },
   { immediate: true }
 )
-// 点击跳转
+
 const router = useRouter()
+// 点击跳转
 const onLinkClick = (item) => {
-  router.push({
-    path: item.path
-  })
+  router.push({ path: item.path })
 }
 </script>
 <style lang="scss" scoped>
 .breadcrumb {
   display: inline-block;
   font-size: 14px;
-  line-height: 50px;
+  height: 50px;
   margin-left: 8px;
   .no-redirect {
     color: #97a8be;

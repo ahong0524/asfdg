@@ -5,10 +5,11 @@
 </template>
 <script setup>
 import { computed, defineProps } from 'vue'
+import { useStore } from 'vuex'
 const props = defineProps({
   iconName: {
     type: String,
-    require: true
+    requrie: true
   },
   className: {
     type: String
@@ -17,25 +18,28 @@ const props = defineProps({
 const iconName = computed(() => {
   return `#icon-${props.iconName}`
 })
+const store = useStore()
 const getClassName = computed(() => {
-  if (props.className) {
-    // 如果传了className  ==>defaultSvgClass sideClass
-    return `defaultSvgClass ${props.className}`
+  // 如果传了 className 并且值为 sideClass -->  defacltSvgClass sideClass
+  if (props.className === 'sideClass') {
+    if (store.getters.sideBarOpen) {
+      return ['defaultSvgClass', props.className]
+    } else {
+      return `defaultSvgClass`
+    }
+  } else if (props.className === 'cuttle') {
+    return ['defaultSvgClass', props.className]
   } else {
-    // 如果没传className ==>defaultSvgClass
     return `defaultSvgClass`
   }
 })
 </script>
-
 <style lang="scss" scoped>
 .defaultSvgClass {
   width: 1em;
   height: 1em;
   fill: currentColor;
-  color: #889aa4;
   vertical-align: -0.15em;
   overflow: hidden;
-  margin-right: 10px;
 }
 </style>

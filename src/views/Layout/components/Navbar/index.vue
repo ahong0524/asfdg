@@ -1,22 +1,22 @@
 <template>
   <div class="navbar">
-    <!--切换侧边栏的组件-->
-    <cuttle class="cuttle-container" />
+    <!-- 切换侧边栏的组件 -->
+    <cuttle class="cuttle-containers" />
     <!-- 面包屑 -->
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
       <!-- 导航搜索 -->
-      <Search />
+      <search class="right-menu-item" />
       <!-- 全屏切换 -->
-      <screen-full />
+      <screen-full class="right-menu-item" />
       <!-- 主题换肤 -->
       <theme class="right-menu-item" />
       <!-- 国际化按钮 -->
       <select-lang class="right-menu-item" />
       <el-dropdown class="avatar-container">
-        <!-- 头像-->
+        <!-- 头像 -->
         <div class="avatar-wrapper">
-          <el-avatar shape="square" :size="50" :src="avatar"></el-avatar>
+          <el-avatar shape="square" :size="40" :src="avatar"></el-avatar>
         </div>
         <template #dropdown>
           <el-dropdown-menu class="user-drop-down">
@@ -36,23 +36,24 @@ import avatar from '@/assets/logo.png'
 import { useStore } from 'vuex'
 import Cuttle from '@/components/Cuttle/index.vue'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
-import SelectLang from '@/components/SelectLang/index'
-import Theme from '@/components/Theme/index'
-import ScreenFull from '@/components/Screenfull/index'
+import SelectLang from '@/components/SelectLang/index.vue'
+import Theme from '@/components/Theme/index.vue'
+import ScreenFull from '@/components/ScreenFull/index.vue'
 import Search from '@/components/Search/index.vue'
-const store = useStore()
+
+var store = useStore()
 // 主动退出
 const logout = () => {
   store.dispatch('user/logout')
 }
 </script>
-
 <style lang="scss" scoped>
 .navbar {
   height: 50px;
   overflow: hidden;
   position: relative;
   background-color: #fff;
+  border-bottom: 1px solid #e1dddd;
   border-radius: 0 1px 4px rgba(0, 21, 41, 0.08);
   .right-menu {
     display: flex;
@@ -62,32 +63,33 @@ const logout = () => {
 
     :deep(.right-menu-item) {
       display: inline-block;
-      padding: 0 0px 0 0;
+      padding: 0 18px 0 0;
       font-size: 24px;
       color: #ccc;
       vertical-align: text-bottom;
-      &:hover {
-        background: rgba(0, 0, 0, 0.1);
-      }
+      // &:hover {
+      //   // background-color: rgba(0, 0, 0, 0.1);
+      // }
     }
+
     .avatar-container {
       cursor: pointer;
       .avatar-wrapper {
+        margin-top: 5px;
         position: relative;
         :deep(.el-avatar) {
           --el-avatar-background-color: none;
-          margin-right: 10px;
+          margin-right: 5px;
         }
       }
     }
   }
-  .cuttle-container {
+  .cuttle-containers {
     line-height: 50px;
     height: 100%;
     float: left;
     cursor: pointer;
-    transition: backgeound 0.5s;
-
+    transition: background 0.5s;
     &:hover {
       background: rgba(0, 0, 0, 0.1);
     }

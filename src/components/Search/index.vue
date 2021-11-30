@@ -3,10 +3,10 @@
     <!-- 图标 -->
     <svg-icon
       iconName="search"
-      className="search-icon"
-      @click.stop="toggleShow"
-    />
-    <!-- select下拉框 -->
+      class="search-icon"
+      @click.stop="onClose"
+    ></svg-icon>
+    <!-- select 下拉选项 -->
     <el-select
       v-model="search"
       placeholder="Select"
@@ -21,70 +21,68 @@
       <el-option
         v-for="option in searchResult"
         :key="option.item.path"
-        :label="option.item.title.join('>')"
+        :label="option.item.title.join('>>')"
         :value="option.item"
       >
       </el-option>
     </el-select>
   </div>
 </template>
-
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { filterRouter, generateFuse } from '@/utils/router.js'
 import Fuse from 'fuse.js'
 import { watchLang } from '@/utils/i18n.js'
+
+const router = useRouter()
+
 const searchSelectRef = ref(null)
+
 const isShow = ref(false)
-const toggleShow = () => {
-  if (isShow.value) {
-    // 收起
-    isShow.value = false
-    search.value = ''
-    searchResult.value = []
-    // 失去焦点
-    searchSelectRef.value.blur()
-  } else {
-    // 展开
-    isShow.value = true
-    // 展开自动获取焦点
-    searchSelectRef.value.focus()
-  }
-}
+// const toggleShow = () => {
+//   onClose()
+// }
+
 // 用户输入检索的字符串
 const search = ref('')
+
 const searchResult = ref([])
+
 // 检索方法
 const querySearch = (query) => {
   searchResult.value = fuse.search(query)
 }
-// 选中option 触发的方法
+
+// 选中 option 触发方法
 const onSelectChange = (value) => {
   // search 修改
-  search.value = value.title.join('>')
+  search.value = value.title.join('>>')
+
   // 跳转
   router.push(value.path)
-  console.log('选中option', value)
 }
-// 获取数据源
-const router = useRouter()
+
+// 准备数据源
 let list = computed(() => {
   // 去重
   const filterRoutes = filterRouter(router.getRoutes())
-  // 格式化路由  条件:1具备meto && meta.title 2过滤掉动态路由
+  //  格式化路由
+  //    1、具备 meta && meta.title
+  //    2、过滤掉动态路由
   return generateFuse(filterRoutes)
 })
-// 初始化 fuse.js --》模糊搜索工具
+
+// 初始化 Fuse  -->  模糊搜索工具
 let fuse
 const initFuse = (list) => {
   fuse = new Fuse(list, {
-    shouldSort: true, // 搜索结果 是否按照优先级排序
-    minMatchCharLength: 2, // 搜索的字符 最小长度
+    shouldSort: true, // 搜索的结果是否按照优先级排序
+    minMatchCharLength: 2, // 搜索的字符最小长度
     keys: [
       {
-        name: 'path', // 搜索的字段
-        weight: 0.7 // 弱国多条搜索方式 同时命中同一条数据集 按照权重高的记录
+        name: 'path', // 你要搜索的字段
+        weight: 0.7 // 搜索的权重
       },
       {
         name: 'title',
@@ -93,28 +91,28 @@ const initFuse = (list) => {
     ]
   })
 }
-initFuse(list.value) // list数据源
-console.log(fuse)
-// 监听 language的切换操作
+initFuse(list.value)
+// 监听 language 的切换
 watchLang((lang) => {
   list = computed(() => {
-    // 去重
     const filterRoutes = filterRouter(router.getRoutes())
-    // 格式化路由  条件:1具备meto && meta.title 2过滤掉动态路由
     return generateFuse(filterRoutes)
   })
   initFuse(list.value)
 })
-// 问题1 展开和收缩的时候  清空上一次的serch 和 下拉列表数据
-// 问题2 点击其他位置 search 收起
-onMounted(() => {
-  // document.body.addEventListener('click', onClose)
-})
+
+// 问题 1：收起的时候，清空上一次的 search 和 下拉列表数据
+// 问题 2：点击其他位置 search 收起
 const onClose = () => {
-  isShow.value = false
-  isShow.value = search.value = ''
+  search.value = ''
   searchResult.value = []
+  isShow.value = !isShow.value
+  // 展开自动获取焦点
+  searchSelectRef.value.focus()
 }
+// 当 isShow 为 true 的时候 search 会展开
+// 当 isShow 为 true 的时候绑定事件 ，让它可以点击其他的时候收起来，
+// 当 isShow 为 false 的时候取消绑定事件
 watch(isShow, (val) => {
   if (val) {
     document.body.addEventListener('click', onClose)
@@ -123,7 +121,6 @@ watch(isShow, (val) => {
   }
 })
 </script>
-
 <style lang="scss" scoped>
 .header-search {
   .search-icon {
@@ -131,7 +128,7 @@ watch(isShow, (val) => {
     font-size: 18px;
     vertical-align: middle;
     fill: currentColor;
-    color: #393735;
+    color: #414444;
   }
   .header-search-select {
     font-size: 18px;
@@ -147,7 +144,7 @@ watch(isShow, (val) => {
       border-radius: 0;
       border: 0;
       box-shadow: none !important;
-      border-bottom: 1px solid #d9d8d9;
+      border-bottom: 1px solid #d9d9d9;
       vertical-align: middle;
       padding-left: 0;
       padding-right: 0;

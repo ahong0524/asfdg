@@ -30,7 +30,7 @@
 }
 
 #app .sidebar-container .horizontal-collapse-transition {
-  transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+  transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
 }
 
 #app .sidebar-container .scrollbar-wrapper {
@@ -85,10 +85,12 @@
 
 #app .hideSidebar .sidebar-container {
   width: 54px !important;
+  transition: width 0.28;
 }
 
 #app .hideSidebar .main-container {
   margin-left: 54px;
+  transition: margin-left 0.28;
 }
 
 #app .hideSidebar .submenu-title-noDropdown {
@@ -110,10 +112,6 @@
 
 #app .hideSidebar .el-submenu {
   overflow: hidden;
-}
-
-#app .hideSidebar .el-submenu > .el-submenu__title {
-  padding: 0 !important;
 }
 
 #app .hideSidebar .el-submenu > .el-submenu__title .svg-icon {

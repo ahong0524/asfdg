@@ -14,21 +14,19 @@
     <!-- 下拉选项 -->
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item>
-          {{ $t('msg.theme.themeColorChange') }}
-        </el-dropdown-item>
+        <el-dropdown-item>{{
+          $t('msg.theme.themeColorChange')
+        }}</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
   <!-- 弹出的模态框 -->
-  <select-color
-    :showDialogVariable="showDialogVariable"
-    @closeDialog="hideSelectColor"
-  />
+  <select-color :showDialogVariable="showDialogVariable" @closeDialog="hideSelectColor" />
 </template>
 <script setup>
-import SelectColor from './components/selectColor.vue'
+import selectColor from './components/selectColor.vue'
 import { ref } from 'vue'
+
 const showDialogVariable = ref(false)
 const showSelectColor = () => {
   showDialogVariable.value = true

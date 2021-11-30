@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import index from '../views/index.vue'
+import Login from '../views/login/index.vue'
 
 // 私有路由
-const privateRoutes = [
+const PrivateRoutes = [
   {
     path: '/user',
-    component: () => import('@/views/Layout/index.vue'),
+    component: () => import('@/views/layout/index.vue'),
+
     redirect: '/user/manage',
     meta: {
       title: 'user',
@@ -56,7 +57,7 @@ const privateRoutes = [
   },
   {
     path: '/article',
-    component: () => import('@/views/Layout/index.vue'),
+    component: () => import('@/views/layout/index.vue'),
     redirect: '/article/ranking',
     meta: {
       title: 'article',
@@ -96,17 +97,18 @@ const privateRoutes = [
     ]
   }
 ]
-// 公共路由 任何权限的用户都能访问
-const publicRoutes = [
+
+// 公共路由 任何权限的用户都能够访问
+const PublicRoutes = [
   {
     path: '/login',
-    name: 'login',
-    component: index
+    name: 'Login',
+    component: Login
   },
   {
     path: '/',
     name: 'Index',
-    component: () => import('@/views/Layout/index.vue'),
+    component: () => import('@/views/layout/index.vue'),
     redirect: '/profile',
     children: [
       {
@@ -134,7 +136,7 @@ const publicRoutes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes: [...publicRoutes, ...privateRoutes]
+  routes: [...PublicRoutes, ...PrivateRoutes]
 })
 
 export default router

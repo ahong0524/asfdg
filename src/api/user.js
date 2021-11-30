@@ -1,7 +1,7 @@
-import axios from '@/utils/request.js'
+import axios from '../utils/requset'
 // 定义user相关的网络请求
-export const login = (data) => {
-  // axios的请求
+export const login1 = function (data) {
+  // axios 请求
   return axios.request({
     url: '/sys/login',
     method: 'POST',
@@ -10,10 +10,9 @@ export const login = (data) => {
 }
 
 // 获取用户数据
-export const getUserInfo = (data) => {
+export const getUserInfo = () => {
   return axios.request({
     url: '/sys/profile',
-    method: 'GET',
-    data
+    method: 'GET'
   })
 }

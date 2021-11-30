@@ -9,22 +9,20 @@ export const setItem = (key, value) => {
 // 获取数据
 export const getItem = (key) => {
   const value = window.localStorage.getItem(key)
-  // 对象的字符串 '{"name":"张三"}'  'sdafsdafa'
   try {
-    // 是一个对象的字符串
     return JSON.parse(value)
   } catch (err) {
-    // 不是对象的字符串
+    //   不是一个json字符串
     return value
   }
 }
 
-// 删除
-export const deletItem = (key) => {
+// 删除 单个
+export const deleteItem = (key) => {
   window.localStorage.removeItem(key)
 }
 
 // 清空所有
-export const clearItem = (key) => {
-  window.localStorage.deletItem(key)
+export const clearItem = () => {
+  window.localStorage.clear()
 }

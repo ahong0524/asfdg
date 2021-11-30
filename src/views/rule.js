@@ -1,8 +1,10 @@
 import i18n from '@/i18n/index.js'
+
 export const passwordValidate = () => {
   return (rule, value, callback) => {
     // 获取到输入的值做验证  至少是六位
     if (value.length < 6) {
+      // $t 模板     t  vue组件中     global.t  js中
       callback(new Error(i18n.global.t('msg.login.passwordRule')))
     } else {
       callback() // ok

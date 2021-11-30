@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!--Logo-->
+    <!-- logo -->
     <div class="logo-container">
       <el-avatar :src="Logo" shape="square" />
-      <h1 class="logo-title" v-if="store.getters.sideBarOpen">ele-admin</h1>
+      <h1 class="logo-title" v-if="store.getters.sideBarOpen">element-admin</h1>
     </div>
     <!-- 滚动的组件 -->
     <el-scrollbar>
@@ -12,9 +12,10 @@
   </div>
 </template>
 <script setup>
-import SidebarMenu from './SidebarMenu.vue'
 import Logo from '@/assets/logo.png'
+import SidebarMenu from './SidebarMenu.vue'
 import { useStore } from 'vuex'
+
 const store = useStore()
 </script>
 <style lang="scss" scoped>
@@ -28,6 +29,7 @@ const store = useStore()
   :deep(.el-avatar) {
     --el-avatar-background-color: none;
   }
+
   .logo-title {
     margin-left: 10px;
     color: #fff;

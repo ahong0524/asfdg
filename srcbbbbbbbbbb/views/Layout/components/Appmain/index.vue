@@ -1,0 +1,78 @@
+<template>
+  <div class="app-main">
+    <!--二级路由显示容器-->
+    <!-- <menu-item /> -->
+    <router-view />
+  </div>
+</template>
+<script setup>
+// el引入的title导航，这里我们一弃用，改为杰哥版
+// import MenuItem from '../MenuItem/index'
+
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+// 引入tag文件
+import { isNoTag } from '@/utils/tag.js'
+import { useStore } from 'vuex'
+import { getTitle as getTitle_, watchlang } from '@/utils/i18n.js'
+
+// 获取title
+const getTitle = (to) => {
+  if (!to.meta || !to.meta.title) {
+    // 如果不存在title
+    const tmp = to.path.splite('/')
+    return tmp[tmp.length - 1]
+  } else {
+    // 如果存在title，以path的最后一项作为title
+    return getTitle_(to.meta.title)
+  }
+}
+
+// 监听当前路由  增加tag到制定位置
+const route = useRoute()
+const store = useStore()
+watch(
+  route,
+  (to, from) => {
+    if (isNoTag(to.path)) {
+      return true
+    }
+    // 合法的tag到vuex
+    const { path, fullPath, meta, name, params, query } = to
+    store.commit('tag/addTagViewList', {
+      path,
+      fullPath,
+      meta,
+      name,
+      params,
+      query,
+      title: getTitle(to)
+    })
+  },
+  {
+    immediate: true
+  }
+)
+
+// 国际化切换
+watchlang(() => {
+  // 重新更新 vuex中的title 的值
+  const tmpArr = []
+  // 拿到每一个对应的route
+  store.getters.tagViewList.forEach((route, index) => {
+    tmpArr.push({ ...route, title: getTitle(route) })
+  })
+  store.commit('tag/changeTitle', tmpArr)
+})
+</script>
+<style lang="scss" scoped>
+.app-main {
+  min-height: calc(100vh - 50px);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 61px 20px 20px 20px;
+  box-sizing: border-box;
+}
+</style>

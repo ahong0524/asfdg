@@ -5,15 +5,24 @@ export const USER_INFO = 'user_info'
 export const TIME_STAMP = 'time_stamp'
 
 // 2小时
-export const TIME_OUT = 60 * 1000
+export const TIME_OUT = 2 * 60 * 60 * 1000
 
-export const LANGUAGR = 'language'
+export const LANGUAGE = 'language'
 
 // 主题色
 export const MYCOLOR = 'theme_color'
 
+export const TAG_VIEWS = 'tag_views'
+
+export const USER_RELATION = {
+  姓名: 'username',
+  联系方式: 'mobile',
+  角色: 'role',
+  开通时间: 'openTime'
+}
+
 // el-color-picker 默认颜色
-export const predefineColors = [
+export const predefineColor = [
   '#ff4500',
   '#ff8c00',
   '#ffd700',

@@ -1,31 +1,37 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import installElementPlus from './plugins/element'
+"use strict";
+
+var _vue = require("vue");
+
+var _App = _interopRequireDefault(require("./App.vue"));
+
+var _router = _interopRequireDefault(require("./router"));
+
+var _store = _interopRequireDefault(require("./store"));
+
+var _element = _interopRequireDefault(require("./plugins/element"));
+
+require("./styles/index.scss");
+
+var _index2 = _interopRequireDefault(require("./icons/index.js"));
+
+require("./permission.js");
+
+var _index3 = _interopRequireDefault(require("@/i18n/index.js"));
+
+var _index4 = _interopRequireDefault(require("@/filters/index.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // 引入样式的入口文件
-import './styles/index.scss'
-
 // 引入所有的图片
-import initSvgIcon from './icons/index.js'
-
 // 用户鉴权
-import './permission.js'
-
 // 导入 i18n
-import i18n from '@/i18n/index.js'
-
 // 注册全局属性
-import initFilters from '@/filters/index.js'
-
-const app = createApp(App)
-installElementPlus(app)
-initSvgIcon(app)
-initFilters(app)
-app.use(store).use(router).use(i18n).mount('#app')
-
-// 退出业务：
+var app = (0, _vue.createApp)(_App["default"]);
+(0, _element["default"])(app);
+(0, _index2["default"])(app);
+(0, _index4["default"])(app);
+app.use(_store["default"]).use(_router["default"]).use(_index3["default"]).mount('#app'); // 退出业务：
 //     １.token 的作用
 //       a) token 是由后台再首次登录的时候生成，通过response 响应给前端
 //         意思是说一个token 同时再前后端都有保存
@@ -46,7 +52,6 @@ app.use(store).use(router).use(i18n).mount('#app')
 //           单点登录                 （后端处理）
 //             在你已经登录的情况下，你或者是别人再别的设备上再次登录。
 //             你当前的登录状态会被顶下来
-
 //       总结：
 //         １、 前端只能处理主动退出和  前端token失效
 //             也是要你执行前的退出操作
@@ -55,18 +60,15 @@ app.use(store).use(router).use(i18n).mount('#app')
 //               ｃｏｄｅ  ４０１  后台token失效
 //               ｃｏｄｅ  ４０５  单点登录
 //             也是要你执行前的退出操作
-
 //     ３、退出登录操作逻辑
 //         １.清理掉用户的缓存数据
 //         ２清理该用户的权限
 //         ３.返回到登陆页面
 //          ４. 主动退出(前端)
-
 //     5. token 失效(前端 )
 //       1.用户登录获得到token 的时候记录时间
 //       2.指定token 生效时间2小时
 //       3.再调用接口的时候 需要带token ，需要判断这个token时候再有效期之内
-
 // 侧边导航栏业务
 //   1.动态路由的场景
 //     根据路由表的配置，动态生成侧边导航含，路由发生变化 ，对应的侧边菜单也会发生变化
@@ -75,7 +77,6 @@ app.use(store).use(router).use(i18n).mount('#app')
 //       el-menu 整个菜单
 //       el-sub-menu 包含子菜单的 一级菜单
 //       el-menu-item 子菜单  一级菜单  （跳转页面）
-
 //   3.实现动态路由和菜单的思路
 //     1.创建路由和对应的页面组件
 //     2.在sidebarMenu.vue中加载创建的路由
@@ -90,19 +91,16 @@ app.use(store).use(router).use(i18n).mount('#app')
 //         用这种方式获取路由
 //         缺点：
 //           二级路由重复，并且和以及路由放在同一个层级
-
 //       问题：
 //         1. 处理重复的路由   （filterRouter）
 //         2. 有些路由不应该出现再菜单中 /login （generateMenus）
 //           以什么原则决定到底是否再菜单中？ 核心
-
 //             1.meta 路由元信息 ：如果存在meta && meta.icon && meta.title 因该出现，
 //               以title 作为标题 以icon作为logo 显示
 //                 1.如果存在children ：以 el-sub-menu 显示一级菜单，
 //                   以el-menu-item 显示chidlren的二级菜单
 //                 2.不存在children，以el-menu-item 一级菜单
 //             2.不过不满足  meta && meta.icon && meta.title 不应该出现
-
 //     3.根据获取的路由对象 遍历输出对应的菜单
 
 /*

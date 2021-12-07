@@ -11,7 +11,6 @@
       <!-- predefine 定义预定颜色 -->
       <el-color-picker v-model="color" :predefine="predefineColor1" />
     </div>
-    <span>This is a message</span>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="handleClose">{{

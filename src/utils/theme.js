@@ -25,8 +25,9 @@ export const generateNewStyle = async (primary) => {
 }
 
 const getOriginalStyle = async () => {
-  const version = require('element-plus/package.json').version
-  const url = `https://unpkg.com/element-plus@${version}/dist/index.css`
+  // const version = require('element-plus/package.json').version
+  // const url = `https://unpkg.com/element-plus@${version}/dist/index.css`
+  const url = `http://localhost:8080/element-plus.css`
   const { data } = await axios.get(url)
   return data
 }

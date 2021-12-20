@@ -17,24 +17,18 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils/xlsx.js'
 
-const i18n = useI18n()
 const router = useRouter()
-
+const i18n = useI18n()
 const uploadExcelSuccess = async ({ headers, bodys }) => {
-  console.log('-->', headers, bodys)
-
   const data = generateExcelData(bodys)
-  // console.log(data)
-
+  console.log(data)
   // 插入
   await addUserByExcel(data)
   ElMessage.success(bodys.length + i18n.t('msg.excel.importSuccess'))
   // 跳转到用户列表
   router.push({ path: '/user/manage' })
 }
-
 const beforeUpload = () => {
-  // .....
   return { type: 'excel', doUpload: true }
 }
 
@@ -45,9 +39,10 @@ const generateExcelData = (arr) => {
     const obj = {}
     Object.keys(USER_RELATION).forEach((key) => {
       if (USER_RELATION[key] === 'openTime') {
-        obj[USER_RELATION[key]] = formatDate(item[[key]])
+        console.log(formatDate(item[key]))
+        obj[USER_RELATION[key]] = formatDate(item[key])
       } else {
-        obj[USER_RELATION[key]] = item[[key]]
+        obj[USER_RELATION[key]] = item[key]
       }
     })
     arr_.push(obj)

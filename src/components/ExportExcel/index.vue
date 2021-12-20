@@ -9,8 +9,10 @@
       :model-value="filename"
       :placeholder="$t('msg.excel.placeholder')"
     ></el-input>
+
     <!-- 选择下载的页码 -->
     <slot></slot>
+
     <template #footer>
       <el-button @click="close">{{ $t('msg.excel.close') }}</el-button>
       <el-button type="primary" @click="exportExcel">{{
@@ -27,11 +29,11 @@ import { ElMessage } from 'element-plus'
 const props = defineProps({
   dialogShow: {
     type: Boolean,
-    require: true
+    required: true
   },
   data: {
     type: Array,
-    require: true
+    required: true
   },
   header: {
     type: Array,
@@ -43,7 +45,7 @@ const props = defineProps({
   },
   message: {
     type: String,
-    default: '下载失败'
+    default: '下载成功'
   }
 })
 
@@ -52,17 +54,16 @@ const close = () => {
   emit('closeDialog')
 }
 
-// 导出业务
+// 导出业务执行
 const exportExcel = () => {
-  // 1.文件名 不选的话该有默认名 filename  用英文切换
-  // 2.导出全部excel 数据||导出当前页------>exportData
-  // console.log(result)
-  // 3.利用工具 将服务器返回用户数据-->转化成excel数据-->形成excel文件
-  // 4.解析excel数据 并下载该文件
+  // 1.文件名不选的话应该有默认值 filename 中英文切换
+  // 2.导出全部 excel 数据 || 导出当前页数据 --> exportData
+  // 3.利用工具,将服务器返回的用户数据 --> 转化成excel数据 --> 形成excel文件
+  // 4.解析excel数据并且下载该文件
   exportJsonToExcel({
-    header: props.header, // Object.keys(USER_RELATION),
+    header: props.header,
     data: props.data,
-    filename: props.filename.value,
+    filename: props.filename,
     merges: true,
     autoWidth: true,
     bookType: 'xlsx'
@@ -70,7 +71,7 @@ const exportExcel = () => {
     // 6.提示消息
     ElMessage.success(props.message)
   })
-  // 5.关闭dialog
+  // 5.关闭模态框
   close()
 }
 </script>

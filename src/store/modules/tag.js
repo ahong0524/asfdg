@@ -1,5 +1,6 @@
 import { setItem, getItem } from '@/utils/storage.js'
 import { TAG_VIEWS } from '@/common/common.js'
+
 export default {
   namespaced: true,
   state: {
@@ -14,18 +15,17 @@ export default {
         setItem(TAG_VIEWS, state.tagViewList)
       }
     },
-    // 更新tagViewList中的指定索引的title
-    // changeTitle(state, { index, route }) {
-    //   state.tagViewList[index] = route
-    //   setItem(TAG_VIEWS, state.tagViewList)
-    // }
+
+    // 更新 tagViewList 中的指定索引的 title
     changeTitle(state, tagViewList) {
       state.tagViewList = tagViewList
       setItem(TAG_VIEWS, state.tagViewList)
     },
 
-    // 关闭业务
-    // params:paylod :{type:'index||other||right',index:index}
+    /*
+      关闭业务
+      params:paylod:{type:"index||other||right",index:index}
+    */
     closeTag(state, paylod) {
       if (paylod.type === 'index') {
         // 关闭当前
